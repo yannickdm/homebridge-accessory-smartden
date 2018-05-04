@@ -1,30 +1,59 @@
 {
-   "name": "homebridge-accessory-smartden",
-   "version": "1.0.0",
-   "description": "smartDEN for Homebridge",
-   "license": "ISC",
-   "keywords": [
-      "homebridge-plugin",
-      "smartDEN",
-      "relays"
-   ],
-   "repository": {
-      "type": "git",
-      "url": "https://github.com/yannickdm/homebridge-accessory-smartden.git"
-   },
-   "bugs": {
-      "url": "https://github.com/yannickdm/homebridge-accessory-smartden/issues"
-   },
-   "engines": {
-      "node": ">=0.12.0",
-      "homebridge": ">=0.2.0"
-   },
-   "dependencies": {
-      "request": "^2.65.0"
-   },
-   "devDependencies": {
-      "hap-nodejs": "^0.4.27"
-   },
-   "author": "Yannick De Mayer <ydm@huisnet.be>",
-   "homepage": "https://github.com/yannickdm/homebridge-accessory-smartden"
+  "_from": "homebridge-accessory-smartden",
+  "_id": "homebridge-accessory-smartden@1.0.0",
+  "_inBundle": false,
+  "_integrity": "sha512-fcRk56HG5u77qtdX7DPfMMS4Dh0BJtvgVRslm1otUMW/IhRrXI34h9MMa7npN61KTggNdbo7AQFNSbJJjpD9aw==",
+  "_location": "/homebridge-accessory-smartden",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "homebridge-accessory-smartden",
+    "name": "homebridge-accessory-smartden",
+    "escapedName": "homebridge-accessory-smartden",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/homebridge-accessory-smartden/-/homebridge-accessory-smartden-1.0.0.tgz",
+  "_shasum": "f2cb805f2e616408c24f66c3503b47de8d324ea3",
+  "_spec": "homebridge-accessory-smartden",
+  "_where": "/homebridge",
+  "author": {
+    "name": "Yannick De Mayer",
+    "email": "ydm@huisnet.be"
+  },
+  "bugs": {
+    "url": "https://github.com/yannickdm/homebridge-accessory-smartden/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "request": "^2.65.0"
+  },
+  "deprecated": false,
+  "description": "smartDEN for Homebridge",
+  "devDependencies": {
+    "hap-nodejs": "^0.4.27"
+  },
+  "engines": {
+    "homebridge": ">=0.2.0",
+    "node": ">=0.12.0"
+  },
+  "homepage": "https://github.com/yannickdm/homebridge-accessory-smartden",
+  "keywords": [
+    "homebridge-plugin",
+    "smartDEN",
+    "relays"
+  ],
+  "license": "ISC",
+  "name": "homebridge-accessory-smartden",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yannickdm/homebridge-accessory-smartden.git"
+  },
+  "version": "1.1.1"
 }

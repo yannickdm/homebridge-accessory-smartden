@@ -15,6 +15,7 @@ function smartDEN_Relay(log, config) {
     this.relay = [];
     this.password = config.password;
     this.ip = config.ip;
+    this.type = config.type || "NO";
 
     if (!!config.relay && config.relay.constructor === Array) {
         this.relay = config.relay;
@@ -22,11 +23,9 @@ function smartDEN_Relay(log, config) {
     else if (config.relay) {
         this.relay = [config.relay];
     }
-
+	
     this.statusUrl = "http://" + this.ip + "/current_state.json?pw=" + this.password;
 	
-	
-    
 	this.homebridgeService = new Service.Switch(this.name);
     this.homebridgeService.getCharacteristic(Characteristic.On)
         .on("get", this.getStatus.bind(this))
@@ -104,16 +103,17 @@ smartDEN_Relay.prototype = {
 						}
 						this.log(this.name);
 						this.log(" -> relayArray.length: " + relayArray.length);
-						this.log(" -> relayState: " + relayState);
+						this.log(" -> relayState (" + this.type + "): " + relayState);
 						if (relayState/relayArray.length == 1 ){
-								var state="1"
+								//Check for NC or NO
+								var state=(this.type == 'NC') ? "1":"0";
 						}else{
-								var state="0"
-						}		
+								//Check for NC or NO
+								var state=(this.type == 'NC') ? "1":"0";
+						}
 						callback(null, state);
                     }
                 }.bind(this));
-
     },
 
     setStatus: function (on, callback) {
@@ -121,19 +121,26 @@ smartDEN_Relay.prototype = {
     },
 
     makeSetRequest: function (on, callback) {
+		var new_on = Number(on);
+		if (Number(on) == 1){
+			new_on = (this.type === 'NC') ? "0":"1";
+		}
+		else if (Number(on) == 0){
+			new_on = (this.type === 'NC') ? "1":"0";
+		}
         var httpSwitch = this;
-		httpSwitch.log("Value on variable: " + on + ", in number: " + Number(on));
+		httpSwitch.log("Value on variable: " + on + ", in number: " + Number(new_on));
         var relayArray = this.relay;
 		var relayString = "";
 		
 		for (var i = 0; i < relayArray.length; i++){
 			httpSwitch.log("current relayArray: " + relayArray[i]);
-			relayString += "Relay" + relayArray[i] + "=" + Number(on) + "&"
+			relayString += "Relay" + relayArray[i] + "=" + Number(new_on) + "&"
 		}
 						
 		relayString = relayString.substring(0, relayString.length - 1);
 		httpSwitch.log("relayString: " + relayString);
-		httpSwitch.log("full request url: " + this.statusUrl + "&" + relayString);
+		httpSwitch.log("full request url: " + String(this.statusUrl).replace(this.password, "***PASSWORD_HIDDEN***") + "&" + relayString);
 		
 	   this._httpRequest(this.statusUrl + "&" + relayString, "", "GET", function (error, response, body) {
 		   if (error) {
@@ -145,7 +152,7 @@ smartDEN_Relay.prototype = {
 				callback(new Error("Got html error code " + response.statusCode));
 			}
 			else {
-				httpSwitch.log("setStatus() successfully set switch to %s", on? "ON": "OFF");
+				httpSwitch.log("setStatus() successfully set switch to %s", (new_on == 1)? "ON": "OFF");
 				callback(undefined, body);
 			}
 		}.bind(this));
